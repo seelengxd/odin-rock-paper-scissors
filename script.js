@@ -1,33 +1,51 @@
 function computerPlay(){
     let choices = ['Rock', 'Scissors', 'Paper']
-    return choices[Math.round(Math.random() * 3)]
+    return choices[Math.round(Math.random() * 2)]
 }
 
-function capitalize(s){
-    return s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s; 
-}
-
+// return the winner of the round
 function singleRound(playerSelection, computerSelection){
-    playerSelection = capitalize(playerSelection)
     if (playerSelection === computerSelection){
-        return "It's a tie!"
+        return "tie"
     } else if ([['Rock', 'Scissors'], ['Scissors', 'Paper'], ['Paper', 'Rock']].some(([winner, loser]) => winner === playerSelection && loser === computerSelection)){
+        return "player";
+    } else {
+        return "computer";
+    }
+}
+
+function getDisplay(result, playerSelection, computerSelection){
+    if (result === "tie"){
+        return "It's a tie!"
+    } else if (result === "player"){
         return `It's a win! ${playerSelection} beats ${computerSelection}!`;
     } else {
         return `It's a loss! ${computerSelection} beats ${playerSelection}!`;
     }
 }
 
-// console.log(singleRound('Rock', 'Scissors'));
-// console.log(singleRound('Rock', 'Paper'));
-// console.log(singleRound('Rock', 'Rock'));
-
-function game(){
-    for (let i = 0; i < 5; i++){
-        playerSelection = prompt('Choose Rock, Paper or Scissors: ')
-        computerSelection = computerPlay();
-        alert(singleRound(playerSelection, computerPlay()));
+function updateScore(result){
+    if (result !== "tie"){
+        scoreElement = document.querySelector(`#${result}-score`)
+        score = +scoreElement.textContent
+        score++;
+        scoreElement.textContent = score;
+        return score;
     }
 }
 
-game();
+function game(playerSelection){
+    let computerSelection = computerPlay();
+    let winner = singleRound(playerSelection, computerSelection);
+    let winnerText = getDisplay(winner, playerSelection, computerSelection);
+    let winnerScore = updateScore(winner);
+    if (winnerScore === 5){
+        winnerText += ` ${winner} has won!`;
+        document.querySelectorAll("button").forEach(button => button.disabled = true);
+    }
+    document.querySelector(".result").textContent = winnerText;
+
+    
+}
+
+document.querySelectorAll("button").forEach(button => button.addEventListener("click", (e) => game(e.path[1].dataset.choice)));
