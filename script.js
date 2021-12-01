@@ -48,4 +48,4 @@ function game(playerSelection){
     
 }
 
-document.querySelectorAll("button").forEach(button => button.addEventListener("click", (e) => game(e.path[1].dataset.choice)));
+document.querySelectorAll("button").forEach(button => button.addEventListener("click", () => game(button.dataset.choice)));
