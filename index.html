@@ -3,8 +3,29 @@
     <head>
         <title>Rock Paper Scissors</title>
         <meta charset="UTF-8">
+        <script src="script.js" defer></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <script src="script.js"></script>
+        <div class="container">
+            <h1>Rock Paper Scissors</h1>
+            <div class="choices">
+                <button data-choice="Rock"><img src="./images/rock.png"></button>
+                <button data-choice="Paper"><img src="./images/paper.png"></button>
+                <button data-choice="Scissors"><img src="./images/scissors.png"></button>
+            </div>
+            <div class="scoreboard">
+                <div class="score">
+                    <p>Player</p>
+                    <p id="player-score">0</p>
+                </div>
+                <div class="score">
+                    <p>Computer</p>
+                    <p id="computer-score">0</p>
+                </div>
+            </div>
+            <div class="result">First to 5!</div>
+        </div>
+        <footer>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></footer>
     </body>
 </html>
